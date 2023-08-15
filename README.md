@@ -11,6 +11,7 @@ Create a class named `CarManager` with the following attributes:
 
 Implement the constructor `__init__` method to initialize the instance attributes:
 
+- `_id` (instance attribute): An integer that should never be repeated and only rise with each car instance
 - `make` (instance attribute): A string representing the make of the car.
 - `model` (instance attribute): A string representing the model of the car.
 - `year` (instance attribute): An integer representing the manufacturing year of the car.
@@ -24,9 +25,10 @@ Implement the constructor `__init__` method to initialize the instance attribute
 1. Add a car
 2. View all cars
 3. View total number of cars
-4. See a cars details
+4. See a car's details
 5. Service a car
-6. Quit
+6. Update mileage
+7. Quit
 ```
 
 ### Step 2: Add functionality
