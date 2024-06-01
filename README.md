@@ -40,3 +40,20 @@ For each option in the menu provided, utilize class and instance attributes and 
 This exercise offers hands-on experience in using class and instance methods to create a car management system. You've practiced distinguishing between methods that operate at the class level and those that operate at the instance level. By working on this exercise, you'll reinforce your understanding of these concepts and their practical application in object-oriented programming.
 
 As always, ensure that you follow good coding practices, such as using meaningful variable names, writing clear comments, and maintaining proper indentation. Happy coding!
+
+
+This exercise contains a pytest test suite to help you exercise your Test Driven Development skills. To run the test suite, please follow these steps:
+
+- Install pytest
+
+  ```bash
+    # terminal command
+    pip install pytest
+  ```
+
+- Run the test suite
+
+  ```bash
+    # terminal command
+    pytest test_car_management.py
+  ```
