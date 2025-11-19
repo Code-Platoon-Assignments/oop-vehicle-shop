@@ -1,10 +1,10 @@
 # Exercise: Car Management System
 
-In this exercise, you'll create a Python class called `CarManager` to manage a collection of cars in a terminal-based application. The goal is to practice using class and instance methods, while also understanding the distinction between them.
+In this exercise, you'll create a Python class called `Car` to manage a collection of cars in a terminal-based application. The goal is to practice using class and instance methods, while also understanding the distinction between them.
 
 ## Step 0: Class Definition
 
-Create a class named `CarManager` with the following attributes:
+Create a class named `Car` with the following attributes:
 
 - `all_cars` (class attribute): A list/dictionary that will store all the car instances created.
 - `total_cars` (class attribute): An integer that will keep track of the total number of cars.
@@ -20,6 +20,8 @@ Implement the constructor `__init__` method to initialize the instance attribute
 
 ## Step 1: Terminal Application
 
+Create a terminal application to interact with your Car class. For each option in the menu provided, utilize class and instance attributes and instance methods to run your terminal program as expected. Use Python built in methods such as `input` to allow the user to input data through the terminal.
+
 ```bash
 ----  WELCOME  ----
 1. Add a car
@@ -30,10 +32,6 @@ Implement the constructor `__init__` method to initialize the instance attribute
 6. Update mileage
 7. Quit
 ```
-
-### Step 2: Add functionality
-
-For each option in the menu provided, utilize class and instance attributes and instance methods to run your terminal program as expected. Use Python built in methods such as `input` to allow the user to input data through the terminal.
 
 ### Conclusion
 
