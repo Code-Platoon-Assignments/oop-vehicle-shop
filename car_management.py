@@ -1,2 +1,2 @@
-class CarManager:
+class Car:
     pass
