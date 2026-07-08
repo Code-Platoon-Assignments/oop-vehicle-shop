@@ -1,41 +1,157 @@
 class Car:
     all_cars = []
     total_cars = 0
-    next_car_id = 1
-    def __init__(self, make:str, model:str, year:int, milage:int=0, services:list=[]):
-        self._id = self.next_car_id
+    next_id = 1
+
+    def __init__(self, make:str, model:str, year:int, milage:int=0):
+        self._id = Car.next_id
         self._make = make
         self._model = model
         self._year = year
-        self._milage = milage
-        self._services = services
+        self.milage = milage
+        self._services = []
+        Car.next_id += 1
         Car.all_cars.append(self)
-        Car.total_cars += 1
-        Car.next_car_id += 1
+    
     @property
-    def get_id(self):
+    def id(self):
         return self._id
     @property
-    def details(self):
-        return f"ID = {self._id}\nMAKE = {self._make}\nMODEL = {self._model}\nYEAR = {self._year}\nMILAGE = {self._milage}\nSERVICES = {self._services}\n"
+    def make(self):
+        return self._make
+    @property
+    def model(self):
+        return self._model
+    @property
+    def year(self):
+        return self._year
+    @property
+    def milage(self):
+        return self._milage
+    @property
+    def services(self):
+        return self._services
+    @make.setter
+    def make(self, val):
+        if val.isalpha() or val.isalnum():
+            self._make = val
+        else : 
+            raise Exception("Expected letters and numbers only")
+    @model.setter
+    def model(self, val):
+        if val.isalpha() or val.isalnum():
+            self._model = val
+        else : 
+            raise Exception("Expected letters and numbers only")
+    @year.setter
+    def year(self, val):
+        if val.isdigit():
+            self._year = int(val)
+        else : 
+            raise Exception("Expected numbers only")
+    @milage.setter
+    def milage(self, val):
+        if isinstance(val, int):
+            self._milage = val
+        elif val.isdigit():
+            self._milage = int(val)
+        elif val == "":
+            self._milage = 0
+        else : 
+            raise Exception("Expected numbers only")
+    def add_service(self, val):
+        if val.isalpha() or val.isalnum():
+            self.services.append(val)
+            return True
+        else:
+            raise Exception("Expected letters and numbers only")
+        
+    @classmethod
+    def get_total_cars(cls):
+        return len(cls.all_cars)
+    @classmethod
+    def list_cars(cls):
+        return cls.all_cars
+    @classmethod
+    def find_car(cls, car_id:int):
 
-    def get_services(self):
-        return f"SERVICES: {self._services}"
-
-    def add_service(self, *services:str):
-        self._services.extend(services)
-
-    def __str__(self):
-        return f"CAR ID {self._id}: {self._year} {self._make} {self._model}"
+        leftEdge = 0
+        rightEdge = len(cls.all_cars) - 1
+        while leftEdge <= rightEdge:
+            middleVal = (leftEdge + rightEdge) // 2
+            if cls.all_cars[middleVal].id > car_id:
+                rightEdge = middleVal - 1
+            elif cls.all_cars[middleVal].id < car_id:
+                leftEdge = middleVal + 1
+            else:
+                return cls.all_cars[middleVal]
+        return False
+    
+    @classmethod
+    def get_details(cls, car_id:int):
+        target_car = cls.find_car(car_id)
+        if not target_car:
+            return f"Car of ID: {car_id} does not exist"
+        return f"\nID:{target_car.id}\nTYPE: {target_car.make} {target_car.model}\nYEAR: {target_car.year}\nMILAGE: {target_car.milage}\nSERVICES: {target_car.services}\n"
+    
     def __repr__(self):
-        return f"CAR ID {self._id}: {self._year} {self._make} {self._model}"
-first_car = Car("Toyota", "Rav4", 2000, 140000)
-print(first_car.details)
-second_car = Car("Chevrolet", "Malibu", 2013, 40000)
-print(second_car.details)
-print("adding service record to car 1 and printing details\n")
+        return f"CAR ID:{self._id} - CAR TYPE: {self._make} {self._model}\n"
+    def __string__ (self):
+        return f"CAR ID:{self._id} - CAR TYPE: {self._make} {self._model}\n"
+    
+    @classmethod
+    def make_car(cls):
+        vals = {"make":input("\nMake of Car (cannot be blank)\n> "),
+                "model":input("\nModel of Car (cannot be blank)\n> "),
+                "year":input("\nYear of Car (cannot be blank)\n> "),
+                "milage":input("\nMilage of Car (default = 0)\n> " )}
+        car = cls(**vals)
+    
+quit_pressed = False
 
-first_car.add_service("scratch in rear", "headlight replaced", "tires replaced", "totalled")
-first_car.add_service("Recovered and rebuilt")
+car1 = Car("Toyota", "Model", 2000)
+car2 = Car("Chevy", "Model", 2000)
+car3 = Car("Subaru", "Model", 2000)
+car4 = Car("Mitsubishi", "Model", 2000)
+car5 = Car("Jaguar", "Model", 2000)
+car6 = Car("Ford", "Model", 2000)
+car7 = Car("Make", "Model", 2000)
 
-print(first_car.get_services())
+while not quit_pressed:
+    selection = input(
+"""----  WELCOME  ----
+1. Add a car
+2. View all cars
+3. View total number of cars
+4. See a car's details
+5. Service a car
+6. Update mileage
+7. Quit\n> """)
+    match selection:
+        case "1":
+            Car.make_car()
+        case "2":
+            print(f"\n{Car.list_cars()}")
+        case "3":
+            print(Car.get_total_cars())
+        case "4":
+            print(Car.get_details(int(input("Input car ID: > "))))
+        case "5":
+            user_val = int(input("Input car ID: > "))
+            target_car = Car.find_car(user_val)
+            if not target_car:
+                print(f"Car of ID: {user_val} does not exist")
+                continue
+            target_car.add_service(input(f"Describe service completed on {target_car.make} {target_car.model}\n> "))
+        case "6":
+            user_val = int(input("Input car ID: > "))
+            target_car = Car.find_car(user_val)
+            if not target_car:
+                print(f"Car of ID: {user_val} does not exist")
+                continue
+            target_car.milage = int(input("Input new car milage > "))
+        case "7":
+            quit_pressed = True
+        case _:
+            print("invalid input\n")
+
