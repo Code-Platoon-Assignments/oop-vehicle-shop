@@ -55,10 +55,12 @@ class Car:
             self._milage = val
         elif val.isdigit():
             self._milage = int(val)
+        # If user inputs empty value, set to default
         elif val == "":
             self._milage = 0
         else : 
             raise Exception("Expected numbers only")
+    # add service to list of existing service entries
     def add_service(self, val):
         if val.isalpha() or val.isalnum():
             self.services.append(val)
@@ -73,6 +75,7 @@ class Car:
     def list_cars(cls):
         return cls.all_cars
     @classmethod
+    # use binary search to find desired ID of car
     def find_car(cls, car_id:int):
 
         leftEdge = 0
@@ -88,6 +91,7 @@ class Car:
         return False
     
     @classmethod
+    # return all details of car. This uses the "find_car" method
     def get_details(cls, car_id:int):
         target_car = cls.find_car(car_id)
         if not target_car:
@@ -100,6 +104,7 @@ class Car:
         return f"CAR ID:{self._id} - CAR TYPE: {self._make} {self._model}\n"
     
     @classmethod
+    # create car from user input. The type checking for this is buggy
     def make_car(cls):
         vals = {"make":input("\nMake of Car (cannot be blank)\n> "),
                 "model":input("\nModel of Car (cannot be blank)\n> "),
@@ -117,6 +122,7 @@ car5 = Car("Jaguar", "Model", 2000)
 car6 = Car("Ford", "Model", 2000)
 car7 = Car("Make", "Model", 2000)
 
+# run terminal until users quits
 while not quit_pressed:
     selection = input(
 """----  WELCOME  ----
@@ -127,6 +133,7 @@ while not quit_pressed:
 5. Service a car
 6. Update mileage
 7. Quit\n> """)
+    # offer all cases for a button press, including a "catch all" at the end
     match selection:
         case "1":
             Car.make_car()
@@ -154,4 +161,3 @@ while not quit_pressed:
             quit_pressed = True
         case _:
             print("invalid input\n")
-
