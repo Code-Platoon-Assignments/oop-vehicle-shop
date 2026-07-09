@@ -161,3 +161,4 @@ while not quit_pressed:
             quit_pressed = True
         case _:
             print("invalid input\n")
+    print("Hello, World!")
